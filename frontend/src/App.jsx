@@ -1,17 +1,17 @@
-import {BrowserRouter as Router,Routes,Route,Link} from 'react-router-dom'
-import '/src/styles/App.css'
-import Home from '/src/frontend/Home'
+import './App.css'
+import Login from './Components/Login';
+import Signup from './Components/Signup';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+function App() {
 
-function App(){
-  return(
-    <div>
-      <Router>
-        <Routes>
-          <Route path='/' element={<Home/>} />
-        </Routes>
-      </Router>
-    </div>
-  )
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login />}/>
+        <Route path="/signup" element={<Signup />}/>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
