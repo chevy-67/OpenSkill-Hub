@@ -3,10 +3,17 @@
     margin: 0;
     padding: 0;
 }
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #74ebd5 0%, #9face6 100%);
+}
 
 .login-container {
     font-family: 'Arial', sans-serif;
-    background-image: url("../assets/images/login background.jpg");
+    background:transparent; 
 }
 
 .login-container {
@@ -93,10 +100,3 @@ input[type="password"]:hover {
 }
 
 
-.error {
-    color: #d11124;
-    font-size: 0.75rem;
-    margin-top: 4px;
-    display: block;
-    font-weight: 500;
-}

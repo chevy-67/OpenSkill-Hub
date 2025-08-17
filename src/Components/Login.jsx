@@ -24,6 +24,7 @@ function Login() {
   };
 
   return (
+    <div className='login-page'>
     <form className="login-container" onSubmit={handleSubmit(onSubmit)}>
       <header>Sign In</header>
 
@@ -40,7 +41,7 @@ function Login() {
             {...register("username", { required: "Username is required" })} 
           />
         </label>
-        {errors.username && <span className="error">{errors.username.message}</span>}
+        
         
         <label>
           <FontAwesomeIcon icon={faLock} className='icon' />
@@ -50,7 +51,6 @@ function Login() {
             {...register("password", { required: "Password is required" })} 
           />
         </label>
-        {errors.password && <span className="error">{errors.password.message}</span>}
         <button type='submit'>Sign In</button>        
       </div>
       
@@ -67,6 +67,7 @@ function Login() {
         </div>
       </div>
     </form>
+    </div>
   );
 }
 

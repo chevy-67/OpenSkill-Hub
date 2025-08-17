@@ -18,7 +18,6 @@ function Signup() {
         password: data.password,
       });
       console.log("User created:", res.data);
-      // Redirect to profile page after successful signup
       window.location.href = '/profile';
     } catch (error) {
       console.error("Error:", error);
@@ -26,7 +25,7 @@ function Signup() {
   };
 
   return (
-    <>
+    <div className='signup-page'>
       <form className="signup-container" onSubmit={handleSubmit(onSubmit)}>
         <header>Sign Up</header>
         <p className="signin-link">
@@ -96,7 +95,7 @@ function Signup() {
           <button type="submit">Sign Up</button>
         </div>
       </form>
-    </>
+    </div>
   );
 }
 
