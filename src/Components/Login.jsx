@@ -4,49 +4,69 @@ import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle, faFacebook, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { Link } from "react-router-dom";
 import './Login.css';
+import axios from 'axios';
+import { useForm } from 'react-hook-form';
 
 function Login() {
+  const { register, handleSubmit, formState: { errors } } = useForm();
+
+  const onSubmit = async (data) => {
+    try {
+      const res = await axios.post("http://localhost:5000/api/login", {
+        username: data.username,
+        password: data.password,
+      });
+      console.log("User logged in:", res.data);
+      window.location.href = '/';
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
-    <>
-      <form className="login-container">
-        <header>Sign In</header>
-        <p className="signup-link">
-          New User? <Link to="/signup">Create an account</Link>
-        </p>
+    <form className="login-container" onSubmit={handleSubmit(onSubmit)}>
+      <header>Sign In</header>
 
-        <div className="input-group">
-          <label htmlFor="username">
-            <FontAwesomeIcon icon={faUser} className="icon"/>
-            <input type="text" id="username" placeholder="Username" />
-          </label>
-          <label htmlFor="password">
-            <FontAwesomeIcon icon={faLock} className="icon"/>
-            <input type="password" id="password" placeholder="Password" />
-          </label>
+      <p className="signup-link">
+        New User? <Link to="/signup">Create an account</Link>
+      </p>
 
-          <button type="submit">Sign In</button>
+      <div className="input-group">
+        <label>
+          <FontAwesomeIcon icon={faUser} className='icon' />
+          <input 
+            type="text" 
+            placeholder="Username" 
+            {...register("username", { required: "Username is required" })} 
+          />
+        </label>
+        {errors.username && <span className="error">{errors.username.message}</span>}
+        
+        <label>
+          <FontAwesomeIcon icon={faLock} className='icon' />
+          <input 
+            type="password" 
+            placeholder="Password" 
+            {...register("password", { required: "Password is required" })} 
+          />
+        </label>
+        {errors.password && <span className="error">{errors.password.message}</span>}
+        <button type='submit'>Sign In</button>        
+      </div>
+      
+      <p className="forgot-password">
+        <Link to="/forgot-password">Forgot your password?</Link>
+      </p>
+
+      <div className="other-options">
+        <p>Sign in with</p>
+        <div className="social-icons">
+          <a href="#"><FontAwesomeIcon icon={faGoogle} /></a>
+          <a href="#"><FontAwesomeIcon icon={faFacebook} /></a>
+          <a href="#"><FontAwesomeIcon icon={faTwitter} /></a>
         </div>
-
-        <p className="forgot-password">
-          <Link to="/forgot-password">Forgot your password?</Link>
-        </p>
-
-        <div className="other-options">
-          <p>Or sign in with:</p>
-          <div className="social-icons">
-            <a href="#" className="google">
-              <FontAwesomeIcon icon={faGoogle} />
-            </a>
-            <a href="#" className="facebook">
-              <FontAwesomeIcon icon={faFacebook} />
-            </a>
-            <a href="#" className="twitter">
-              <FontAwesomeIcon icon={faTwitter} />
-            </a>
-          </div>
-        </div>
-      </form>
-    </>
+      </div>
+    </form>
   );
 }
 
