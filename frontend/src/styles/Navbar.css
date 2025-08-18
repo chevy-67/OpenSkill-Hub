@@ -7,7 +7,7 @@
     justify-content: space-between;
     align-items: center;
     background-color: #454141;
-    padding: 3px 6px;
+    padding: 10px 6px;
     z-index:1000;
 }
 
@@ -28,4 +28,21 @@
 
 body{
     padding-top: 60px;
+}
+
+.nav-links-right{
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+.nav-btn{
+  background-color: #1872e0;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20vh;
+}
+
+.nav-btn:hover{
+  color: #142336;
 }
