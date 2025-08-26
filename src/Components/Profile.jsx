@@ -19,14 +19,13 @@ import axios from "axios";
 import "./Profile.css";
 
 function Profile() {
-  // react-hook-form setup
+  
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  // handle form submit
   const onSubmit = async (data) => {
     try {
       const res = await axios.post("http://localhost:5000/api/profile", data);
