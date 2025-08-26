@@ -1,3 +1,20 @@
-h1{
-  color: red;
+.app-layout {
+  display: flex;
+}
+
+.links {
+  width: 220px;
+  height: 100vh;
+  background: #f9f9f9;
+  padding: 20px;
+  border-right: 1px solid #ddd;
+  position: fixed;   
+  margin-top: 40px;         
+  left: 0;
+}
+
+.main-content {
+  margin-left: 220px; 
+  padding: 20px;
+  flex: 1;
 }

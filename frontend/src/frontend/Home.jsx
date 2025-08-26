@@ -1,12 +1,20 @@
-import {ReactRouter} from 'react'
-import Navbar from '/src/frontend/Navbar'
+import React from "react";
+import Navbar from "/src/frontend/Navbar";
+import SideBarLeft from "../Components/SideBarLeft";
 
-const Home = ()=>{
+const Home = () => {
     return (
         <div>
-            <Navbar/>
+            <Navbar />
+            <div className="app-layout">
+                <SideBarLeft />
+                <div className="main-content">
+                    <h1>Welcome to Home Page</h1>
+                    <p>This is where your feed or projects will appear.</p>
+                </div>
+            </div>
         </div>
-    )
-}
+    );
+};
 
-export default Home
+export default Home;
