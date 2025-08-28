@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "/src/frontend/Navbar";
 import SideBarLeft from "../Components/SideBarLeft";
+import './Home.css';
 
 const Home = () => {
     return (

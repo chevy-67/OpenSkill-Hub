@@ -11,7 +11,7 @@ function SideBarLeft() {
           We’re building a space where developers, designers, and learners come
           together to share ideas, start projects, and collaborate in real-time.
         </p>
-        <Link to="/user"><button>Create Account</button></Link>
+        <Link to="/user"><button>Create Profile</button></Link>
       </div>
 
       <div className="sidebar-links">
