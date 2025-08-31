@@ -12,6 +12,7 @@
     overflow-y: auto;
 }
 
+/* Before profile is created */
 .account-creation {
     margin-bottom: 20px;
     padding: 16px;
@@ -24,23 +25,23 @@
 }
 
 .account-creation h3 {
-    font-size: 25px;
+    font-size: 22px;
     font-weight: bold;
     margin-bottom: 8px;
     line-height: 1.4;
 }
 
 .account-creation p {
-    font-size: 18px;
+    font-size: 16px;
     margin-bottom: 12px;
     line-height: 1.5;
     color: #555;
 }
 
 .account-creation button {
-    margin-left: 0px;
     display: block;
     width: 100%;
+    margin-left: 0px;
     background-color: #0077ff;
     color: #fff;
     border: none;
@@ -56,6 +57,39 @@
     background-color: #005fcc;
 }
 
+/* After profile is created */
+.account-details {
+    margin-bottom: 20px;
+    padding: 16px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.account-details img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    margin-bottom: 12px;
+    object-fit: cover;
+}
+
+.account-details h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 8px 0;
+    color: #333;
+}
+
+.account-details p {
+    font-size: 15px;
+    color: #555;
+    margin: 6px 0;
+}
+
+/* Sidebar links */
 .sidebar-links ul {
     list-style: none;
     padding: 0;
@@ -63,26 +97,29 @@
 }
 
 .sidebar-links ul li {
-    margin: 16px 0;
-    display: flex;
-    justify-content: center;
-    text-align: justify;
+    margin: 12px 0;
+    text-align: left;   /* align neatly left */
 }
 
 .sidebar-links ul li a {
     text-decoration: none;
     color: #333;
     font-weight: 500;
-    font-size: 20px;
+    font-size: 18px;
+    display: block;
+    padding: 6px 10px;
+    border-radius: 4px;
+    transition: background 0.2s ease, color 0.2s ease;
 }
 
 .sidebar-links ul li a:hover {
     color: #0077ff;
+    background: rgba(0, 119, 255, 0.1);
 }
 
-
+/* Main content next to sidebar */
 .main-content {
-    margin-left: 260px;
+    margin-left: 300px; /* matches sidebar width */
     margin-top: 60px;
     padding: 20px;
     flex: 1;
