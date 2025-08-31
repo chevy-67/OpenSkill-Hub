@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
-import './Login.css';
+import '../styles/Login.css';
 
 function Login() {
   const [creds,setCreds] = useState({
