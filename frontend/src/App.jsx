@@ -6,6 +6,8 @@ import CreatePost from './Components/CreatePost';
 import ProfileCreation from './Components/ProfileCreation';
 import SideBarLeft from './Components/SideBarLeft';
 import Navbar from "./frontend/Navbar"; 
+import Myproject from './Components/Myproject';
+import Explore from './Components/Explore';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 function App() {
 
@@ -19,6 +21,8 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path='/user' element={<ProfileCreation />} />
         <Route path='/sidebar' element={<SideBarLeft />} />
+        <Route path='/myprojects' element={<Myproject/>}/>
+        <Route path='/explore' element={<Explore/>}/>
       </Routes>
     </BrowserRouter>
   );

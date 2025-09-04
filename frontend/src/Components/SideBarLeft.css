@@ -1,6 +1,6 @@
 .sidebar-container {
     position: fixed;
-    top: 81px;
+    top: 60px;
     left: 0;
     width: 300px;
     height: calc(100vh - 60px);
