@@ -9,23 +9,17 @@ function Explore() {
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [selectedSkill, setSelectedSkill] = useState('all');
 
-    // Fetch projects from database
+    // Mock data for projects - will be replaced when backend is ready
     useEffect(() => {
-        const fetchProjects = async () => {
-            try {
-                const response = await fetch('http://localhost:5000/api/projects');
-                if (response.ok) {
-                    const data = await response.json();
-                    setProjects(data);
-                } else {
-                    console.error('Failed to fetch projects');
-                }
-            } catch (error) {
-                console.error('Error fetching projects:', error);
-            }
-        };
-
-        fetchProjects();
+        const mockProjects = [
+            { id: 1, title: 'E-commerce Website', category: 'Web Development', skills: ['React', 'Node.js'], description: 'A full-stack e-commerce platform' },
+            { id: 2, title: 'Mobile App', category: 'Mobile Development', skills: ['React Native', 'Firebase'], description: 'Cross-platform mobile application' },
+            { id: 3, title: 'Data Analysis Tool', category: 'Data Science', skills: ['Python', 'Pandas'], description: 'Tool for analyzing large datasets' },
+            { id: 4, title: 'AI Chatbot', category: 'AI/ML', skills: ['Python', 'TensorFlow'], description: 'Intelligent chatbot using machine learning' },
+            { id: 5, title: 'Portfolio Website', category: 'Web Development', skills: ['HTML', 'CSS', 'JavaScript'], description: 'Personal portfolio website with modern design' },
+            { id: 6, title: 'Task Manager App', category: 'Mobile Development', skills: ['Flutter', 'Dart'], description: 'Cross-platform task management application' }
+        ];
+        setProjects(mockProjects);
     }, []);
 
     const filteredProjects = projects.filter(project => {
