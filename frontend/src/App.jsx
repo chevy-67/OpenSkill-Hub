@@ -8,11 +8,13 @@ import SideBarLeft from './Components/SideBarLeft';
 import Navbar from "./frontend/Navbar"; 
 import Myproject from './Components/Myproject';
 import Explore from './Components/Explore';
+import Navbar from './frontend/Navbar'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 function App() {
 
   return (
     <BrowserRouter>
+    <Navbar/>
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/createpost' element={<CreatePost />} />
