@@ -5,10 +5,9 @@ import Home from './Components/Home'
 import CreatePost from './Components/CreatePost';
 import ProfileCreation from './Components/ProfileCreation';
 import SideBarLeft from './Components/SideBarLeft';
-import Navbar from "./frontend/Navbar"; 
+import Navbar from './frontend/Navbar';
 import Myproject from './Components/Myproject';
 import Explore from './Components/Explore';
-import Navbar from './frontend/Navbar'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 function App() {
 
