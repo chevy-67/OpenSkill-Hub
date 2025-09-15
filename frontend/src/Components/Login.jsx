@@ -1,10 +1,12 @@
 import React,{useState} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import '../styles/Login.css';
 
+
 function Login() {
+  const navigate = useNavigate()
   const [creds,setCreds] = useState({
     username:'',
     password:''
@@ -27,6 +29,8 @@ function Login() {
 
       if(resp.ok){
         console.log(result.message)
+        localStorage.setItem('username',creds.username)
+        navigate('/home')
       }
       else{
         console.log(result.error)

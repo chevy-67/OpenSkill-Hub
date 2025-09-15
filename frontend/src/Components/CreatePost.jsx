@@ -1,10 +1,13 @@
 import {useState} from 'react'
 import '../styles/CreatePost.css'
 
+const username = localStorage.getItem('username')
+
 const CreatePost = () => {
   const [postData,setPostData] = useState({
     title : '',
-    description : ''
+    description : '',
+    username : username || ''
   })
 
   const handleChange = (e)=>{
