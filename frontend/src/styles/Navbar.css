@@ -46,3 +46,9 @@ body{
 .nav-btn:hover{
   color: #142336;
 }
+
+.nav-btn-logout{
+  background-color: #1872e0;
+  padding: 4px;
+  width: 10%;
+}

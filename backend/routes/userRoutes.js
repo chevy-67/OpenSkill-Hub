@@ -33,7 +33,7 @@ router.post("/signup", async (req, res) => {
     if (existUsername) {
       return res.status(400).json({ message: "Username not available" });
     }
-    const newUser = new User({ name, username, email, password});
+    const newUser = new NewUser({ name, username, email, password});
     await newUser.save()
     res.status(201).json({ message: "Account created succesfullt" });
   } catch (er) {

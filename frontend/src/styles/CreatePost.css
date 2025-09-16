@@ -1,4 +1,4 @@
-.form {
+.post-form {
     width: 800px;
     margin: 48px auto;
     padding: 32px 28px;
@@ -10,15 +10,15 @@
     gap: 22px;
 }
 
-.form label {
+.post-form label {
     font-weight: 600;
     margin-bottom: 6px;
     color: #1a202c;
     letter-spacing: 0.02em;
 }
 
-.form input[type="text"],
-.form textarea {
+.post-form input[type="text"],
+.post-form textarea {
     padding: 13px 12px;
     border: 1.5px solid #e2e8f0;
     border-radius: 7px;
@@ -29,22 +29,22 @@
     margin-bottom: 8px;
 }
 
-.form input[type="text"]:focus,
-.form textarea:focus {
+.post-form input[type="text"]:focus,
+.post-form textarea:focus {
     border: 1.5px solid #3182ce;
     box-shadow: 0 0 0 2px #bee3f8;
     outline: none;
     background: #f0f8ff;
 }
 
-.form textarea {
+.post-form textarea {
     min-height: 110px;
     max-height: 320px;
     width: 100%;
     max-width: 100%;
 }
 
-.form button {
+.post-form button {
     width: 20%;
     padding: 13px 0;
     background: linear-gradient(90deg, #3182ce 60%, #63b3ed 100%);
@@ -58,13 +58,13 @@
     box-shadow: 0 2px 8px rgba(49,130,206,0.08);
 }
 
-.form button:hover {
+.post-form button:hover {
     background: linear-gradient(90deg, #2563eb 60%, #4299e1 100%);
     transform: translateY(-2px) scale(1.02);
 }
 
 @media (max-width: 600px) {
-    .form {
+    .post-form {
         padding: 20px 8px;
         max-width: 98vw;
     }

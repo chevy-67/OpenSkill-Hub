@@ -7,7 +7,7 @@ const CreatePost = () => {
   const [postData,setPostData] = useState({
     title : '',
     description : '',
-    username : username || ''
+    username : username
   })
 
   const handleChange = (e)=>{
@@ -26,9 +26,11 @@ const CreatePost = () => {
       const res = await resp.json()
 
       if(resp.ok){
-        console.log(res.message)
+        alert("Post Published Successfully")
+        //console.log(res.message)
       }
       else{
+        alert(res.error)
         console.log("Error : "+res.error)
       }
     }
@@ -38,10 +40,10 @@ const CreatePost = () => {
   }
   return (
     <div>
-        <div className='form'>
+        <div className='post-form'>
           <form onSubmit={handleSubmit}>
             <label>Title : </label>
-            <input type='text' name='title' onChange={handleChange} value={postData.title} required />
+            <input className='title' type='text' name='title' onChange={handleChange} value={postData.title} required /><br/>
             <label>Description : </label>
             <textarea name='description' onChange={handleChange} value={postData.description} required/>
             <button type='submit'>Post</button>

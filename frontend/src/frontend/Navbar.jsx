@@ -22,7 +22,6 @@ function Navbar(){
             <ul className='nav-links'>
                 <li><Link to='/home'>Home</Link></li>
                 <li><Link to='/explore'>Explore</Link></li>
-                <li><Link to='/createpost'>Create</Link></li>
             </ul>
             {!isLoggedIn && (
                 <>
@@ -33,7 +32,12 @@ function Navbar(){
                 </>
             )}
             {isLoggedIn && (
-                <button onClick={handleLogout} className='nav-btn'>Logout</button>
+                <>
+                    <button onClick={handleLogout} className='nav-btn-logout'>Logout</button>
+                    <ul className='nav-links'>
+                        <li><Link to='/createpost'>Create</Link></li>
+                    </ul>
+                </>
             )}
         </nav>
     )

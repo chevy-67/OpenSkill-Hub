@@ -1,6 +1,7 @@
 const express = require('express')
 const dotenv = require('dotenv')
 const userRoutes = require('./routes/userRoutes')
+const dataRoutes = require('./routes/dataRoutes')
 const mongoose = require('mongoose')
 const cors = require('cors')
 
@@ -19,5 +20,6 @@ mongoose.connect(MONGO_URI)
 .catch((err)=>console.log('Error in connecting with MongoDB'+err))
 
 app.use('/api/users',userRoutes)
+app.use('/api/generic/',dataRoutes)
 
 app.listen(PORT,()=>console.log(`Server listening at ${PORT}...`))

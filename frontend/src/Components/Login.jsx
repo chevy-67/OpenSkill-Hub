@@ -28,11 +28,12 @@ function Login() {
       const result = await resp.json()
 
       if(resp.ok){
-        console.log(result.message)
+        alert(result.message)
         localStorage.setItem('username',creds.username)
         navigate('/home')
       }
       else{
+        alert(result.error)
         console.log(result.error)
       }
     }

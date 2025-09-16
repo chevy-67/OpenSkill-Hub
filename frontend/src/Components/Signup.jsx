@@ -1,5 +1,5 @@
-import React,{useState} from 'react'
-import '../styles/Signup.css'
+import {useState} from 'react'
+import '../styles/Signup.css';
 
 const Signup = () => {
   const [formData,setFormData] = useState({
@@ -22,6 +22,10 @@ const Signup = () => {
 
   const saveChange=async (e)=>{
     e.preventDefault()
+    if(!formData.name || !formData.username || !formData.email || !formData.password){
+      alert('Please fill all inputs')
+      return
+    }
     if(formData.password!=confirmPass){
       setError('Passwords do not match')
       return
@@ -39,9 +43,11 @@ const Signup = () => {
       const res = await resp.json()
 
       if(resp.ok){
-        console.log(res.message)
+        alert(res.message)
+        //console.log(res.message)
       }
       else{
+        alert(res.error)
         console.log("Error : "+res.error)
       }
     }
@@ -53,7 +59,7 @@ const Signup = () => {
     <div className='container'>
         <h2>Signup</h2>
         {error && <div style={{color:'red'}}>{error}</div>}
-        <form className='form' onSubmit={saveChange}>
+        <form className='signup-form' onSubmit={saveChange}>
             <label>Name : </label>
             <input type='text' name='name' value={formData.name} onChange={handleChange}/>
             <label>Username : </label>
