@@ -6,7 +6,7 @@ const PostSchema = new mongoose.Schema({
     username : {type:String,required:true},
     date : {type:String},
     time : {type:String}
-})
+},{timestamps:true})
 
 const model = mongoose.model('Post_Data',PostSchema)
 module.exports = model

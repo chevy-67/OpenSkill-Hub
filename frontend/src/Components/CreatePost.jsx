@@ -1,13 +1,14 @@
 import {useState} from 'react'
+import {useNavigate} from 'react-router-dom'
 import '../styles/CreatePost.css'
 
-const username = localStorage.getItem('username')
-
 const CreatePost = () => {
+  const navigate = useNavigate()
+
   const [postData,setPostData] = useState({
     title : '',
     description : '',
-    username : username
+    username : ''
   })
 
   const handleChange = (e)=>{
@@ -16,6 +17,8 @@ const CreatePost = () => {
 
   const handleSubmit = async(e)=>{
     e.preventDefault()
+    const username = localStorage.getItem('username')
+    await setPostData({...postData,username})
     try{
       const resp = await fetch('http://localhost:8989/api/users/create_post',{
         method:'POST',
@@ -24,9 +27,9 @@ const CreatePost = () => {
       })
       
       const res = await resp.json()
-
       if(resp.ok){
         alert("Post Published Successfully")
+        navigate('/home')
         //console.log(res.message)
       }
       else{
