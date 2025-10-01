@@ -13,4 +13,18 @@ router.get('/getpost',async (req,res)=>{
   }
 })
 
+router.get('/getpost/:id', async(req,res)=>{
+  try{
+    const {id} = req.params
+    const post = await PostData.findOne({_id:id})
+    if(!post){
+      res.status(404).json({message : "Post not found"})
+    }
+    res.json(post)
+  }
+  catch(err){
+    res.status(500).json({error:"Server error"})
+  }
+})
+
 module.exports = router
