@@ -1,5 +1,6 @@
 import { useEffect,useState } from "react";
 import { useLocation,useParams } from "react-router-dom";
+import '../styles/BriefPost.css'
 
 const BriefPost = () => {
   const location = useLocation()
