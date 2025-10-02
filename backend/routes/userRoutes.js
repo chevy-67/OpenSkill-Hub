@@ -2,6 +2,7 @@ const express = require("express");
 const jwt = require('jsonwebtoken')
 const NewUser = require("../models/User");
 const PostData = require("../models/PostData")
+const bcrypt = require('bcrypt')
 
 const router = express.Router();
 
@@ -13,7 +14,9 @@ router.post("/login", async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: "User does not exist" });
     }
-    if (password != user.password) {
+
+    let match = await bcrypt.compare(password,user.password)
+    if (!match) {
       return res.status(400).json({ error: "Wrong password"});
     }
     res.status(200).json({message:"Login succesful"});
@@ -33,11 +36,14 @@ router.post("/signup", async (req, res) => {
     if (existUsername) {
       return res.status(400).json({ message: "Username not available" });
     }
-    const newUser = new NewUser({ name, username, email, password});
+
+    let hashedPass = await bcrypt.hash(password,9)
+
+    const newUser = new NewUser({ name, username, email, password:hashedPass});
     await newUser.save()
     res.status(201).json({ message: "Account created succesfullt" });
   } catch (er) {
-    return res.status(500).json({error:er.message})
+    return res.status(500).json({message:er.message})
   }
 });
 

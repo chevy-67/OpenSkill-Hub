@@ -47,8 +47,8 @@ const Signup = () => {
         //console.log(res.message)
       }
       else{
-        alert(res.error)
-        console.log("Error : "+res.error)
+        alert(res.message)
+        console.log("Error : "+res.message)
       }
     }
     catch(err){
