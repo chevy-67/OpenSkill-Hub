@@ -19,7 +19,12 @@ router.post("/login", async (req, res) => {
     if (!match) {
       return res.status(400).json({ error: "Wrong password"});
     }
-    res.status(200).json({message:"Login succesful"});
+    const token = jwt.sign(
+      { id: user._id, username: user.username },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' }
+    );
+    res.status(200).json({ message: "Login succesful", token });
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
@@ -36,8 +41,8 @@ router.post("/signup", async (req, res) => {
     if (existUsername) {
       return res.status(400).json({ message: "Username not available" });
     }
-
-    let hashedPass = await bcrypt.hash(password,9)
+    const salt = 10
+    let hashedPass = await bcrypt.hash(password,salt)
 
     const newUser = new NewUser({ name, username, email, password:hashedPass});
     await newUser.save()
@@ -49,7 +54,18 @@ router.post("/signup", async (req, res) => {
 
 router.post("/create_post",async (req,res)=>{
   try{
-    const {title,description,username} = req.body
+    const authorize = req.headers['authorization']
+    const token = authorize && authorize.split(' ')[1]
+    if(!token){
+      return res.status(401).json({message:'Not authorized'})
+    }
+    const verification = jwt.verify(token,process.env.JWT_SECRETE)
+
+    if(!verification){
+      return res.status(401).json({message:'No valid token...'})
+    }
+    const {title,description} = req.body
+    const username = verification.username
     const now = new Date();
     const date = now.toISOString().split('T')[0]
     const time = now.toTimeString().split(' ')[0]
