@@ -1,7 +1,9 @@
 import {useState} from 'react'
 import '../styles/Signup.css';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
+  const navigate = useNavigate()
   const [formData,setFormData] = useState({
     name : '',
     username : '',
@@ -44,7 +46,7 @@ const Signup = () => {
 
       if(resp.ok){
         alert(res.message)
-        //console.log(res.message)
+        navigate('/login')
       }
       else{
         alert(res.message)
