@@ -18,11 +18,14 @@ const CreatePost = () => {
   const handleSubmit = async(e)=>{
     e.preventDefault()
     const username = localStorage.getItem('username')
+    const token = localStorage.getItem('token')
     await setPostData({...postData,username})
     try{
       const resp = await fetch('http://localhost:8989/api/users/create_post',{
         method:'POST',
-        headers:{'Content-Type':'application/json'},
+        headers:{'Content-Type':'application/json',
+                  'Authorization':`Bearer ${token}`
+        },
         body:JSON.stringify(postData)
       })
       
@@ -30,11 +33,11 @@ const CreatePost = () => {
       if(resp.ok){
         alert("Post Published Successfully")
         navigate('/home')
-        //console.log(res.message)
       }
       else{
-        alert(res.error)
+        alert(res.message)
         console.log("Error : "+res.error)
+        console.log("Message : "+res.message)
       }
     }
     catch(err){

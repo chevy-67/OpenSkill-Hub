@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken')
 const NewUser = require("../models/User");
 const PostData = require("../models/PostData")
 const bcrypt = require('bcrypt')
+const verifyToken = require('../middleware/verifyToken')
 
 const router = express.Router();
 
@@ -52,20 +53,10 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-router.post("/create_post",async (req,res)=>{
+router.post("/create_post",verifyToken,async (req,res)=>{
   try{
-    const authorize = req.headers['authorization']
-    const token = authorize && authorize.split(' ')[1]
-    if(!token){
-      return res.status(401).json({message:'Not authorized'})
-    }
-    const verification = jwt.verify(token,process.env.JWT_SECRETE)
-
-    if(!verification){
-      return res.status(401).json({message:'No valid token...'})
-    }
     const {title,description} = req.body
-    const username = verification.username
+    const username = req.user.username
     const now = new Date();
     const date = now.toISOString().split('T')[0]
     const time = now.toTimeString().split(' ')[0]
