@@ -5,6 +5,7 @@ import Home from './frontend/Home'
 import CreatePost from './Components/CreatePost';
 import Navbar from './frontend/Navbar'
 import BriefPost from './Components/BriefPost';
+import ProtectedRoute from './Components/ProtectedRoute';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 function App() {
@@ -14,7 +15,7 @@ function App() {
     <Navbar/>
       <Routes>
         <Route path='/' element={<Home/>}/>
-        <Route path='/createpost' element={<CreatePost/>}/>
+        <Route path='/createpost' element={<ProtectedRoute><CreatePost/></ProtectedRoute>}/>
         <Route path='/home' element={<Home/>}/>
         <Route path="/login" element={<Login />}/>
         <Route path="/signup" element={<Signup />}/>

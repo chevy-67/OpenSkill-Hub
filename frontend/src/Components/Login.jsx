@@ -30,6 +30,7 @@ function Login() {
       if(resp.ok){
         alert(result.message)
         localStorage.setItem('username',creds.username)
+        localStorage.setItem('token',result.token)
         navigate('/home')
       }
       else{
