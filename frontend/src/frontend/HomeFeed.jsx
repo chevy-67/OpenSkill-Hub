@@ -2,6 +2,8 @@ import {useState,useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import '../styles/HomeFeed.css'
 
+const API_URL = import.meta.env.VITE_DEPLOY_URL
+
 const HomeFeed = () => {
         const [posts,setPosts] = useState([])
         const [loading,setLoading] = useState(true)
@@ -9,7 +11,7 @@ const HomeFeed = () => {
         useEffect(()=>{
             const fetchPost = async ()=>{
             try{
-            const resp = await fetch('http://localhost:8989/api/generic/getpost')
+            const resp = await fetch(`${API_URL}/api/generic/getpost`)
             const result = await resp.json()
 
             if(resp.ok){
