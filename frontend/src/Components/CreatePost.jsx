@@ -2,7 +2,7 @@ import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import '../styles/CreatePost.css'
 
-const API_URL = import.meta.env.DEPLOY_URL
+const API_URL = import.meta.env.VITE_DEPLOY_URL
 
 const CreatePost = () => {
   const navigate = useNavigate()

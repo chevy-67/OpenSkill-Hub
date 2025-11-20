@@ -2,7 +2,7 @@ import {useState} from 'react'
 import '../styles/Signup.css';
 import { useNavigate } from 'react-router-dom';
 
-const API_URL = import.meta.env.DEPLOY_URL
+const API_URL = import.meta.env.VITE_DEPLOY_URL
 
 const Signup = () => {
   const navigate = useNavigate()

@@ -2,7 +2,7 @@ import { useEffect,useState } from "react";
 import { useLocation,useParams } from "react-router-dom";
 import '../styles/BriefPost.css'
 
-const API_URL = import.meta.env.DEPLOY_URL
+const API_URL = import.meta.env.VITE_DEPLOY_URL
 
 const BriefPost = () => {
   const location = useLocation()
