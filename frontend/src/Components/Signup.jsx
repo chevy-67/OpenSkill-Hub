@@ -2,6 +2,8 @@ import {useState} from 'react'
 import '../styles/Signup.css';
 import { useNavigate } from 'react-router-dom';
 
+const API_URL = import.meta.env.DEPLOY_URL
+
 const Signup = () => {
   const navigate = useNavigate()
   const [formData,setFormData] = useState({
@@ -36,7 +38,7 @@ const Signup = () => {
       setError('')
     }
     try{
-      const resp = await fetch('http://localhost:8989/api/users/signup',{
+      const resp = await fetch(`${API_URL}/api/users/signup`,{
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify(formData)

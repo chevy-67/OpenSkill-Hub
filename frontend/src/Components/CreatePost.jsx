@@ -2,6 +2,8 @@ import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import '../styles/CreatePost.css'
 
+const API_URL = import.meta.env.DEPLOY_URL
+
 const CreatePost = () => {
   const navigate = useNavigate()
 
@@ -21,7 +23,7 @@ const CreatePost = () => {
     const token = localStorage.getItem('token')
     await setPostData({...postData,username})
     try{
-      const resp = await fetch('http://localhost:8989/api/users/create_post',{
+      const resp = await fetch(`${API_URL}/api/users/create_post`,{
         method:'POST',
         headers:{'Content-Type':'application/json',
                   'Authorization':`Bearer ${token}`

@@ -2,6 +2,8 @@ import { useEffect,useState } from "react";
 import { useLocation,useParams } from "react-router-dom";
 import '../styles/BriefPost.css'
 
+const API_URL = import.meta.env.DEPLOY_URL
+
 const BriefPost = () => {
   const location = useLocation()
   const {id} = useParams()
@@ -11,7 +13,7 @@ const BriefPost = () => {
   useEffect(()=>{
     const fetchData = async () =>{
       try{
-        const resp = await fetch(`http://localhost:8989/api/generic/getpost/${id}`)
+        const resp = await fetch(`${API_URL}/api/generic/getpost/${id}`)
         const data = await resp.json()
         if(resp.ok) setPost(data)
       }
