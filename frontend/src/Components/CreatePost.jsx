@@ -1,82 +1,64 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import './CreatePost.css'
+import {useState} from 'react'
+import {useNavigate} from 'react-router-dom'
+import '../styles/CreatePost.css'
 
-function CreatePost() {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [category, setCategory] = useState('');
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const API_URL = import.meta.env.VITE_DEPLOY_URL
 
-    const postData = {
-      title,
-      description,
-      category,
+const CreatePost = () => {
+  const navigate = useNavigate()
 
-    };
+  const [postData,setPostData] = useState({
+    title : '',
+    description : '',
+    username : ''
+  })
 
-    try {
-      const response = await axios.post('https://your-api-endpoint.com/posts', postData);
-      console.log('Post created successfully:', response.data);
-    } catch (error) {
-      console.error('Error creating post:', error);
+  const handleChange = (e)=>{
+    setPostData({...postData,[e.target.name]:e.target.value})
+  }
+
+  const handleSubmit = async(e)=>{
+    e.preventDefault()
+    const username = localStorage.getItem('username')
+    const token = localStorage.getItem('token')
+    await setPostData({...postData,username})
+    try{
+      const resp = await fetch(`${API_URL}/api/users/create_post`,{
+        method:'POST',
+        headers:{'Content-Type':'application/json',
+                  'Authorization':`Bearer ${token}`
+        },
+        body:JSON.stringify(postData)
+      })
+      
+      const res = await resp.json()
+      if(resp.ok){
+        alert("Post Published Successfully")
+        navigate('/home')
+      }
+      else{
+        alert(res.message)
+        console.log("Error : "+res.error)
+        console.log("Message : "+res.message)
+      }
     }
-  };
-
+    catch(err){
+      console.log(err)
+    }
+  }
   return (
-    <div className='post-container'>
-      <form onSubmit={handleSubmit}>
-        <div className="input">
-          <label>Title:  </label>
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <br />
-          <br />
+    <div>
+        <div className='post-form'>
+          <form onSubmit={handleSubmit}>
+            <label>Title : </label>
+            <input className='title' type='text' name='title' onChange={handleChange} value={postData.title} required /><br/>
+            <label>Description : </label>
+            <textarea name='description' onChange={handleChange} value={postData.description} required/>
+            <button type='submit'>Post</button>
+          </form>
         </div>
-        <div className="input">
-          <label>Description:</label>
-          <br>
-          </br>
-          <textarea
-            maxLength={10000}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-          <br />
-          <br />
-        </div>
-        <div>
-          <label>Category: </label>
-
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option value="" disabled>
-              Choose a category
-            </option>
-            <option value="webdevelopment">Web Development</option>
-            <option value="mobileappdevelopment">Mobile App Development</option>
-            <option value="aiprojects">AI Projects</option>
-            <option value="cloudprojects">Cloud Projects</option>
-            <option value="contentwriting">Content Writing</option>
-            <option value="photoediting">Photo Editing</option>
-            <option value="videoediting">Video Editing</option>
-          </select>
-        </div>
-        <br>
-        </br>
-        <div>
-          <button type="submit">Post</button>
-        </div>
-
-      </form>
     </div>
-  );
+  )
 }
 
-export default CreatePost;
+export default CreatePost

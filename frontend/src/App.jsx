@@ -1,27 +1,34 @@
-import './Components/App.css'
-import Login from './Components/Login';
-import Signup from './Components/Signup';
-import Home from './Components/Home'
-import CreatePost from './Components/CreatePost';
-import ProfileCreation from './Components/ProfileCreation';
-import SideBarLeft from './Components/SideBarLeft';
-import Navbar from "./frontend/Navbar"; 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-function App() {
+  import './styles/App.css'
+  import Login from './Components/Login';
+  import Signup from './Components/Signup';
+  import Home from './frontend/Home'
+  import CreatePost from './Components/CreatePost';
+  import Navbar from './frontend/Navbar'
+  import BriefPost from './Components/BriefPost';
+  import ProtectedRoute from './Components/ProtectedRoute';
+  import Footer from './Components/Footer';
 
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/createpost' element={<CreatePost />} />
-        <Route path='/home' element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path='/user' element={<ProfileCreation />} />
-        <Route path='/sidebar' element={<SideBarLeft />} />
-      </Routes>
-    </BrowserRouter>
-  );
-}
+  import { BrowserRouter, Routes, Route } from 'react-router-dom';
+  function App() {
 
-export default App;
+    return (
+      <div className='app-container'>
+        <BrowserRouter>
+        <Navbar/>
+          <div className='content'>
+            <Routes>
+              <Route path='/' element={<Home/>}/>
+              <Route path='/createpost' element={<ProtectedRoute><CreatePost/></ProtectedRoute>}/>
+              <Route path='/home' element={<Home/>}/>
+              <Route path="/login" element={<Login />}/>
+              <Route path="/signup" element={<Signup />}/>
+              <Route path='/post/:id' element={<BriefPost/>}/>
+            </Routes>
+          </div>
+        </BrowserRouter>
+        <Footer/>
+      </div>
+    );
+  }
+
+  export default App;

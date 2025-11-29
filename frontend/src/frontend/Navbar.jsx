@@ -1,26 +1,44 @@
-import React from 'react'
+import {useState,useEffect} from 'react'
 import '/src/styles/Navbar.css'
-import {Link} from 'react-router-dom'
-import {AiOutlineSearch} from 'react-icons/ai';
+import {Link,useNavigate} from 'react-router-dom'
 
 function Navbar(){
+    const navigate = useNavigate()
+
+    const [isLoggedIn,setIsLoggedIn] = useState(false)
+
+    useEffect(()=>{
+        const username = localStorage.getItem('username')
+        setIsLoggedIn(username)
+    })
+
+    const handleLogout = () =>{
+        localStorage.removeItem('username')
+        setIsLoggedIn(false)
+        navigate('/home')
+    }
     return(
         <nav className='navbar'>
-            <div className='logo'>
-                {/* Logo will go here */}
-            </div>
-            <div className='searchbar'>
-                <div className='searchbox'>
-                    <input type="search" placeholder="Search"></input>
-                    <button>
-                        <AiOutlineSearch />
-                    </button>
-                </div>
-            </div>
-            <ul className='nav-links-right'>
-                <li><Link to='/login' className='nav-btn-ln'>Login</Link></li>
-                <li><Link to='/signup' className='nav-btn-sn'>Sign Up</Link></li>
+            <ul className='nav-links'>
+                <li><Link to='/home'>Home</Link></li>
+                <li><Link to='/explore'>Explore</Link></li>
             </ul>
+            {!isLoggedIn && (
+                <>
+                    <ul className='nav-links-right'>
+                        <li><Link to='/login' className='nav-btn'>Login</Link></li>
+                        <li><Link to='/signup' className='nav-btn'>Sign Up</Link></li>
+                    </ul>
+                </>
+            )}
+            {isLoggedIn && (
+                <>
+                    <button onClick={handleLogout} className='nav-btn-logout'>Logout</button>
+                    <ul className='nav-links'>
+                        <li><Link to='/createpost'>Create</Link></li>
+                    </ul>
+                </>
+            )}
         </nav>
     )
 }

@@ -1,7 +1,12 @@
-import React,{useState} from 'react'
-import './Signup.css'
+import {useState} from 'react'
+import '../styles/Signup.css';
+import { useNavigate } from 'react-router-dom';
+import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
+
+const API_URL = import.meta.env.VITE_DEPLOY_URL
 
 const Signup = () => {
+  const navigate = useNavigate()
   const [formData,setFormData] = useState({
     name : '',
     username : '',
@@ -22,6 +27,10 @@ const Signup = () => {
 
   const saveChange=async (e)=>{
     e.preventDefault()
+    if(!formData.name || !formData.username || !formData.email || !formData.password){
+      alert('Please fill all inputs')
+      return
+    }
     if(formData.password!=confirmPass){
       setError('Passwords do not match')
       return
@@ -30,7 +39,7 @@ const Signup = () => {
       setError('')
     }
     try{
-      const resp = await fetch('http://localhost:8989/api/users/signup',{
+      const resp = await fetch(`${API_URL}/api/users/signup`,{
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify(formData)
@@ -39,10 +48,12 @@ const Signup = () => {
       const res = await resp.json()
 
       if(resp.ok){
-        console.log(res.message)
+        alert(res.message)
+        navigate('/login')
       }
       else{
-        console.log("Error : "+res.error)
+        alert(res.message)
+        console.log("Error : "+res.message)
       }
     }
     catch(err){
@@ -53,8 +64,8 @@ const Signup = () => {
     <div className='container'>
         <h2>Signup</h2>
         {error && <div style={{color:'red'}}>{error}</div>}
-        <form className='form' onSubmit={saveChange}>
-            <label>Name : </label>
+        <form className='signup-form' onSubmit={saveChange}>
+            <label for="name">Name: </label>
             <input type='text' name='name' value={formData.name} onChange={handleChange}/>
             <label>Username : </label>
             <input type='text' name='username' value={formData.username} onChange={handleChange}/>
