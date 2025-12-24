@@ -1,7 +1,6 @@
 import {useState} from 'react'
 import '../styles/Signup.css';
 import { useNavigate } from 'react-router-dom';
-import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 
 const API_URL = import.meta.env.VITE_DEPLOY_URL
 
