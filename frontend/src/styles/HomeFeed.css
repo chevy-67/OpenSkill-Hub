@@ -10,6 +10,16 @@
   max-width: 540px;
 }
 
+
+
+.no-posts {
+  text-align: center;
+  color: #1a237e;
+  font-size: 1.1rem;
+  margin-top: 40px;
+  font-weight: 500;
+}
+
 .home-feed li {
   background: #fff;
   margin-bottom: 22px;

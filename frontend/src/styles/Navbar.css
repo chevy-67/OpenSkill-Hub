@@ -34,6 +34,12 @@ body{
   list-style: none;
   display: flex;
   gap: 30px;
+  align-items: center;
+}
+
+.nav-links-right li {
+  display: flex;
+  align-items: center;
 }
 
 .nav-btn{
@@ -41,6 +47,10 @@ body{
   color: white;
   padding: 6px 16px;
   border-radius: 20vh;
+  display: inline-block;
+  text-decoration: none;
+  box-sizing: border-box;
+  line-height: 1.2;
 }
 
 .nav-btn:hover{
@@ -49,6 +59,46 @@ body{
 
 .nav-btn-logout{
   background-color: #1872e0;
-  padding: 4px;
-  width: 10%;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20vh;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 16px;
+  margin: 0;
+  box-sizing: border-box;
+  line-height: 1.2;
+}
+
+.nav-btn-logout:hover{
+  color: #142336;
+}
+
+.navbar-search {
+  flex-grow: 1;
+  max-width: 400px;
+  margin: 0 20px;
+}
+
+.nav-search-bar {
+  width: 100%;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: white;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.nav-search-bar::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.nav-search-bar:focus {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
 }
