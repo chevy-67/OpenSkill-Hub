@@ -1,6 +1,8 @@
 const PostData = require('../models/PostData.js')
 const AppliedPosts = require('../models/AppliedPosts.js')
+const User = require('../models/User.js')
 const express = require('express')
+const verifyToken = require('../middleware/verifyToken.js')
 
 const router = express.Router()
 
@@ -14,7 +16,7 @@ router.get('/getpost',async (req,res)=>{
   }
 })
 
-router.get('/getpost/:id', async(req,res)=>{
+router.get('/getpost/:id',async(req,res)=>{
   try{
     const {id} = req.params
     const post = await PostData.findOne({_id:id})
@@ -28,9 +30,10 @@ router.get('/getpost/:id', async(req,res)=>{
   }
 })
 
-router.post('/applypost',async(req,res)=>{
+router.post('/applypost',verifyToken,async(req,res)=>{
   try{
-    const {post_id,username,date,time} = req.body
+    const {post_id,date,time} = req.body
+    const username = req.user.username
     const alreadyApplied = await AppliedPosts.findOne({post_id:post_id,username:username})
     if(alreadyApplied){
       return res.status(400).json({message:"Already applied for this team"})
