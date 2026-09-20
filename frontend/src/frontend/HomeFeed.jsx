@@ -40,7 +40,7 @@ const filteredPosts = posts.filter(post =>
 return (
     <div className='home-feed'>
         {loading && (<h5>Loading Posts...</h5>)}
-        {!loading && filteredPosts.length===0 ? (<p className="no-posts">No posts found.</p>) : (
+        {!loading && (
             <ul>
                 {filteredPosts.map((post)=>{
                     return(

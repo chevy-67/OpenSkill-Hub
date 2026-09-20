@@ -1,6 +1,7 @@
 import { useEffect,useState } from "react";
 import { useLocation,useParams } from "react-router-dom";
 import '../styles/BriefPost.css'
+import ProtectedRoute from './ProtectedRoute.jsx'
 
 const API_URL = import.meta.env.VITE_DEPLOY_URL
 
@@ -33,14 +34,15 @@ const BriefPost = () => {
 
   const Apply = async() =>{
     try{
+      const token = localStorage.getItem('token')
       const resp = await fetch(`${API_URL}/api/generic/applypost`,{
         method:'POST',
         headers:{
-          'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body:JSON.stringify({
           post_id:post._id,
-          username:post.username,
           date:post.createdAt,
           time:post.createdAt
         })
