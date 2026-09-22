@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import '../styles/Signup.css';
-import { useNavigate } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 
 const API_URL = import.meta.env.VITE_DEPLOY_URL
 
@@ -61,7 +61,10 @@ const Signup = () => {
   }
   return (
     <div className='container'>
-        <h2>Signup</h2>
+        <h2>Sign Up</h2>
+        <p className="signup-link">
+          Already have an account? <Link to="/login">Login here</Link>
+        </p>
         {error && <div style={{color:'red'}}>{error}</div>}
         <form className='signup-form' onSubmit={saveChange}>
             <label>Name : </label>
@@ -73,8 +76,8 @@ const Signup = () => {
             <label>Password : </label>
             <input type='password' name='password' value={formData.password} onChange={handleChange}/>
             <label>Confirm Password : </label>
-            <input type='password' name='c_pass' value={confirm.value} onChange={handlePassVal}/>
-            <button type='submit'>Signup</button>
+            <input type='password' name='c_pass' value={confirmPass} onChange={handlePassVal}/>
+            <button type='submit'>Sign Up</button>
         </form>
     </div>
   )

@@ -6,7 +6,9 @@ import '../styles/Login.css';
 
 const API_URL = import.meta.env.VITE_DEPLOY_URL
 
+
 function Login() {
+  const [error,setError] = useState('')
   const navigate = useNavigate()
   const [creds,setCreds] = useState({
     username:'',
@@ -35,11 +37,13 @@ function Login() {
         navigate('/home')
       }
       else{
-        alert(result.error)
+        setError(result.error)
         console.log(result.error)
+        return
       }
     }
     catch(err){
+      setError(err.error)
       console.log("Error : "+err)
     }
   }
@@ -51,7 +55,7 @@ function Login() {
         <p className="signup-link">
           New User? <Link to="/signup">Create an account</Link>
         </p>
-
+        {error && <div style={{color:'red', textAlign:'center'}}>{error}</div>}
         <div className="input-group">
           <label htmlFor="username">
             <FontAwesomeIcon icon={faUser} className="icon"/>
