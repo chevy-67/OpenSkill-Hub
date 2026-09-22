@@ -58,10 +58,12 @@ function Navbar(){
                 </>
             )}
             {isLoggedIn && (
-                <ul className='nav-links-right'>
-                    <li><Link to='/createpost' className='nav-btn'>Create</Link></li>
-                    <li><button onClick={handleLogout} className='nav-btn-logout'>Logout</button></li>
-                </ul>
+                <>
+                    <button onClick={handleLogout} className='nav-btn-logout'>Logout</button>
+                    <ul className='nav-links'>
+                        <li><Link to='/createpost'>Create Post</Link></li>
+                    </ul>
+                </>
             )}
         </nav>
     )

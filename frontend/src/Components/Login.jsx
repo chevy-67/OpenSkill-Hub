@@ -6,14 +6,14 @@ import '../styles/Login.css';
 
 const API_URL = import.meta.env.VITE_DEPLOY_URL;
 
+
 function Login() {
-  const navigate = useNavigate();
-  const [creds, setCreds] = useState({
-    username: '',
-    password: ''
-  });
-  const [errorMsg, setErrorMsg] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [error,setError] = useState('')
+  const navigate = useNavigate()
+  const [creds,setCreds] = useState({
+    username:'',
+    password:''
+  })
 
   const handleChange = (e) => {
     setCreds({ ...creds, [e.target.name]: e.target.value });
@@ -30,21 +30,15 @@ function Login() {
     setIsLoading(true);
     setErrorMsg('');
 
-    try {
-      const resp = await fetch(`${API_URL}/api/users/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(creds)
-      });
-
-      const result = await resp.json();
-
-      if (resp.ok) {
-        localStorage.setItem('username', creds.username);
-        localStorage.setItem('token', result.token);
-        navigate('/home');
-      } else {
-        setErrorMsg(result.error || "Login failed. Please try again.");
+      if(resp.ok){
+        localStorage.setItem('username',creds.username)
+        localStorage.setItem('token',result.token)
+        navigate('/home')
+      }
+      else{
+        setError(result.error)
+        console.log(result.error)
+        return
       }
     } catch (err) {
       setErrorMsg("Network error. Please try again later.");
@@ -52,16 +46,20 @@ function Login() {
     } finally {
       setIsLoading(false);
     }
-  };
+    catch(err){
+      setError(err.error)
+      console.log("Error : "+err)
+    }
+  }
 
   return (
     <div className="login-wrapper">
       <form className="login-container" onSubmit={handleSubmit}>
-        <header>Welcome Back</header>
-        <p className="subtitle">Please enter your details to sign in.</p>
-
-        {errorMsg && <div className="error-message">{errorMsg}</div>}
-
+        <header>Sign In</header>
+        <p className="signup-link">
+          New User? <Link to="/signup">Create an account</Link>
+        </p>
+        {error && <div style={{color:'red', textAlign:'center'}}>{error}</div>}
         <div className="input-group">
           <div className="input-wrapper">
             <FontAwesomeIcon icon={faUser} className="icon"/>
