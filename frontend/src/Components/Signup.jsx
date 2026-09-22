@@ -1,64 +1,73 @@
-import {useState} from 'react'
+import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faEnvelope, faLock, faSpinner, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Signup.css';
 import { Link,useNavigate } from 'react-router-dom';
 
-const API_URL = import.meta.env.VITE_DEPLOY_URL
+const API_URL = import.meta.env.VITE_DEPLOY_URL;
 
 const Signup = () => {
-  const navigate = useNavigate()
-  const [formData,setFormData] = useState({
-    name : '',
-    username : '',
-    email : '',
-    password : ''
-  })
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: '',
+    username: '',
+    email: '',
+    password: ''
+  });
 
-  const [confirmPass,setConfirmPass] = useState('')
-  const [error,setError] = useState('')
+  const [confirmPass, setConfirmPass] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [successMsg, setSuccessMsg] = useState('');
 
-  const handleChange=(e)=>{
-    setFormData({...formData,[e.target.name]:e.target.value})
-  }
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setErrorMsg('');
+  };
 
-  const handlePassVal = (e)=>{
-    setConfirmPass(e.target.value)
-  }
+  const handlePassVal = (e) => {
+    setConfirmPass(e.target.value);
+    setErrorMsg('');
+  };
 
-  const saveChange=async (e)=>{
-    e.preventDefault()
-    if(!formData.name || !formData.username || !formData.email || !formData.password){
-      alert('Please fill all inputs')
-      return
+  const saveChange = async (e) => {
+    e.preventDefault();
+    if (!formData.name || !formData.username || !formData.email || !formData.password) {
+      setErrorMsg("Please fill in all fields.");
+      return;
     }
-    if(formData.password!=confirmPass){
-      setError('Passwords do not match')
-      return
+    if (formData.password !== confirmPass) {
+      setErrorMsg("Passwords do not match.");
+      return;
     }
-    else{
-      setError('')
-    }
-    try{
-      const resp = await fetch(`${API_URL}/api/users/signup`,{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify(formData)
-      })
-      
-      const res = await resp.json()
 
-      if(resp.ok){
-        alert(res.message)
-        navigate('/login')
+    setIsLoading(true);
+    setErrorMsg('');
+
+    try {
+      const resp = await fetch(`${API_URL}/api/users/signup`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      const res = await resp.json();
+
+      if (resp.ok) {
+        setSuccessMsg(res.message || "Signup successful! Redirecting...");
+        setTimeout(() => navigate('/login'), 2000);
+      } else {
+        setErrorMsg(res.message || "Signup failed. Please try again.");
       }
-      else{
-        alert(res.message)
-        console.log("Error : "+res.message)
-      }
+    } catch (err) {
+      setErrorMsg("Network error. Please try again later.");
+      console.error(err);
+    } finally {
+      setIsLoading(false);
     }
-    catch(err){
-      console.log(err)
-    }
-  }
+  };
+
   return (
     <div className='container'>
         <h2>Sign Up</h2>
@@ -80,7 +89,7 @@ const Signup = () => {
             <button type='submit'>Sign Up</button>
         </form>
     </div>
-  )
-}
+  );
+};
 
-export default Signup
+export default Signup;

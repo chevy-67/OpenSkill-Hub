@@ -1,10 +1,10 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faLock, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { Link, useNavigate } from "react-router-dom";
 import '../styles/Login.css';
 
-const API_URL = import.meta.env.VITE_DEPLOY_URL
+const API_URL = import.meta.env.VITE_DEPLOY_URL;
 
 
 function Login() {
@@ -15,20 +15,20 @@ function Login() {
     password:''
   })
 
-  const handleChange = (e)=>{
-    setCreds({...creds,[e.target.name]:e.target.value})
-  }
+  const handleChange = (e) => {
+    setCreds({ ...creds, [e.target.name]: e.target.value });
+    setErrorMsg(''); // clear error when user types
+  };
 
-  const handleSubmit = async (e)=>{
-    e.preventDefault()
-    try{
-      const resp = await fetch(`${API_URL}/api/users/login`,{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify(creds)
-      })
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!creds.username || !creds.password) {
+      setErrorMsg("Please enter both username and password.");
+      return;
+    }
 
-      const result = await resp.json()
+    setIsLoading(true);
+    setErrorMsg('');
 
       if(resp.ok){
         localStorage.setItem('username',creds.username)
@@ -40,6 +40,11 @@ function Login() {
         console.log(result.error)
         return
       }
+    } catch (err) {
+      setErrorMsg("Network error. Please try again later.");
+      console.error("Error:", err);
+    } finally {
+      setIsLoading(false);
     }
     catch(err){
       setError(err.error)
@@ -48,7 +53,7 @@ function Login() {
   }
 
   return (
-    <>
+    <div className="login-wrapper">
       <form className="login-container" onSubmit={handleSubmit}>
         <header>Sign In</header>
         <p className="signup-link">
@@ -56,23 +61,50 @@ function Login() {
         </p>
         {error && <div style={{color:'red', textAlign:'center'}}>{error}</div>}
         <div className="input-group">
-          <label htmlFor="username">
+          <div className="input-wrapper">
             <FontAwesomeIcon icon={faUser} className="icon"/>
-            <input type="text" name="username" value={creds.username} placeholder="Username" onChange={handleChange}/>
-          </label>
-          <label htmlFor="password">
+            <input 
+              type="text" 
+              name="username" 
+              value={creds.username} 
+              placeholder="Username" 
+              onChange={handleChange}
+              disabled={isLoading}
+              autoComplete="username"
+            />
+          </div>
+          
+          <div className="input-wrapper">
             <FontAwesomeIcon icon={faLock} className="icon"/>
-            <input type="password" name="password" value={creds.password} placeholder="Password" onChange={handleChange}/>
-          </label>
+            <input 
+              type="password" 
+              name="password" 
+              value={creds.password} 
+              placeholder="Password" 
+              onChange={handleChange}
+              disabled={isLoading}
+              autoComplete="current-password"
+            />
+          </div>
 
-          <button type="submit">Sign In</button>
+          <p className="forgot-password">
+            <Link to="/forgot-password">Forgot password?</Link>
+          </p>
+
+          <button type="submit" disabled={isLoading} className={isLoading ? "loading-btn" : ""}>
+            {isLoading ? (
+              <FontAwesomeIcon icon={faSpinner} spin className="spinner-icon" />
+            ) : (
+              "Sign In"
+            )}
+          </button>
         </div>
 
-        <p className="forgot-password">
-          <Link to="/forgot-password">Forgot your password?</Link>
+        <p className="signup-link">
+          Don't have an account? <Link to="/signup">Sign up</Link>
         </p>
       </form>
-    </>
+    </div>
   );
 }
 

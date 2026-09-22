@@ -34,6 +34,12 @@ body{
   list-style: none;
   display: flex;
   gap: 30px;
+  align-items: center;
+}
+
+.nav-links-right li {
+  display: flex;
+  align-items: center;
 }
 
 .nav-btn{
@@ -41,6 +47,10 @@ body{
   color: white;
   padding: 6px 16px;
   border-radius: 20vh;
+  display: inline-block;
+  text-decoration: none;
+  box-sizing: border-box;
+  line-height: 1.2;
 }
 
 .nav-btn:hover{
