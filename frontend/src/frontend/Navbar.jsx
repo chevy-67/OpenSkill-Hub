@@ -35,7 +35,7 @@ function Navbar(){
                 <>
                     <button onClick={handleLogout} className='nav-btn-logout'>Logout</button>
                     <ul className='nav-links'>
-                        <li><Link to='/createpost'>Create</Link></li>
+                        <li><Link to='/createpost'>Create Post</Link></li>
                     </ul>
                 </>
             )}

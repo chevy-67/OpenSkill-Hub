@@ -48,7 +48,17 @@ body{
 }
 
 .nav-btn-logout{
+  position: absolute;
+  top: 6px;
+  right: 16px;
   background-color: #1872e0;
-  padding: 4px;
-  width: 10%;
+  color: white;
+  padding: 6px 10px;
+  border: 0;
+  border-radius: 20vh;
+  cursor: pointer;
+}
+
+.nav-btn-logout + .nav-links{
+  margin-right: 110px;
 }
